@@ -10,6 +10,7 @@ func TestInitCfg(t *testing.T) {
 	cfg := new(Cfg)
 	cfg.InitCfg("config.conf")
 	fmt.Printf("cfg: %v", cfg)
+	assert.Equal(t, nil, nil)
 }
 
 func TestRead(t *testing.T) {
