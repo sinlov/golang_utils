@@ -2,76 +2,40 @@ package structure
 
 import (
 	"testing"
+	"fmt"
+	"github.com/bmizerany/assert"
 )
 
-func TestStack(t *testing.T) {
+func TestNewStack(t *testing.T) {
 	stack := NewStack()
+	stack.Push(0)
 	stack.Push(1)
 	stack.Push(2)
 	stack.Push(3)
-	stack.Push(4)
-	len := stack.Len()
-	if len != 4 {
-		t.Errorf("stack.Len() failed. Got %d, expected 4.", len)
-	}
-
+	stLen := stack.Len()
+	assert.Equal(t, stLen, 4)
+	fmt.Printf("stack len %v\n", stLen)
 	value := stack.Peak().(int)
-	if value != 4 {
-		t.Errorf("stack.Peak() failed. Got %d, expected 4.", value)
-	}
-
+	assert.Equal(t, value, 3)
+	fmt.Printf("stack Peak value %v\n", value)
 	value = stack.Pop().(int)
-	if value != 4 {
-		t.Errorf("stack.Pop() failed. Got %d, expected 4.", value)
-	}
-
-	len = stack.Len()
-	if len != 3 {
-		t.Errorf("stack.Len() failed. Got %d, expected 3.", len)
-	}
-
-	value = stack.Peak().(int)
-	if value != 3 {
-		t.Errorf("stack.Peak() failed. Got %d, expected 3.", value)
-	}
-
-	value = stack.Pop().(int)
-	if value != 3 {
-		t.Errorf("stack.Pop() failed. Got %d, expected 3.", value)
-	}
-
-	value = stack.Pop().(int)
-	if value != 2 {
-		t.Errorf("stack.Pop() failed. Got %d, expected 2.", value)
-	}
-
-	empty := stack.Empty()
-	if empty {
-		t.Errorf("stack.Empty() failed. Got %d, expected false.", empty)
-	}
-
-	value = stack.Pop().(int)
-	if value != 1 {
-		t.Errorf("stack.Pop() failed. Got %d, expected 1.", value)
-	}
-
-	empty = stack.Empty()
-	if !empty {
-		t.Errorf("stack.Empty() failed. Got %d, expected true.", empty)
-	}
-
-	nilValue := stack.Peak()
-	if nilValue != nil {
-		t.Errorf("stack.Peak() failed. Got %d, expected nil.", nilValue)
-	}
-
-	nilValue = stack.Pop()
-	if nilValue != nil {
-		t.Errorf("stack.Pop() failed. Got %d, expected nil.", nilValue)
-	}
-
-	len = stack.Len()
-	if len != 0 {
-		t.Errorf("stack.Len() failed. Got %d, expected 0.", len)
-	}
+	assert.Equal(t, value, 3)
+	fmt.Printf("stack Pop value %v\n", value)
+	afterPopLen := stack.Len()
+	assert.Equal(t, afterPopLen, 3)
+	fmt.Printf("stack after Pop Len %v\n", value)
+	afterPopPeak :=stack.Peak().(int)
+	fmt.Printf("stack after Pop Peak %v\n",afterPopPeak)
+	isEmpty :=stack.Empty()
+	assert.NotEqual(t, isEmpty, true)
+	fmt.Printf("now stack isEmpty %v\n",isEmpty)
+	stack.Pop()
+	stack.Pop()
+	stack.Pop()
+	nowIsEmpty := stack.Empty()
+	assert.Equal(t, nowIsEmpty, true)
+	fmt.Printf("now stack isEmpty %v\n",nowIsEmpty)
+	nilValue := stack.Pop()
+	assert.Equal(t, nilValue, nil)
+	fmt.Printf("Empty stack Pop nil value %v\n",nilValue)
 }
