@@ -28,6 +28,28 @@ go get -u -v github.com/sinlov/golang_utils
 	fmt.Printf("daemon: %v, port: %v \n", daemon, port)
 ```
 
+## randomplus
+
+- Positive will new random number by size
+
+Like size 8 is [10000000, 99999999]
+
+- PositiveNegative new random by size
+
+Like size 4 is [-9999, -1000] to [1000, 9999]
+
+```golang
+    got, err := PositiveNegative(8)
+		if err != nil {
+			fmt.Errorf("PositiveNegative() error = %v", err)
+
+		}
+	got, err := Positive(5)
+		if err != nil {
+			fmt.Errorf("Postive() error = %v", err)
+}
+```
+
 #License
 
 ---
