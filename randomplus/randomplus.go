@@ -1,9 +1,17 @@
 package randomplus
 
 import (
-	"time"
 	"math/rand"
+	"time"
 )
+
+func TimeSeed(max int) (int, time.Time) {
+	sed := time.Now()
+	time_int := sed.UnixNano()
+	r := rand.New(rand.NewSource(time_int))
+	res_int := r.Intn(max)
+	return res_int, sed
+}
 
 func Positive(size int) (int, error) {
 	if size > 13 {
@@ -11,8 +19,6 @@ func Positive(size int) (int, error) {
 			13, "13",
 		}
 	}
-	time_int := time.Now().UnixNano()
-	r := rand.New(rand.NewSource(time_int))
 	max_num := 1
 	for i := 1; i < size + 1; i++ {
 		max_num = max_num * 10
@@ -24,7 +30,7 @@ func Positive(size int) (int, error) {
 	}
 	min_num--
 	NewRandom:
-	res_int := r.Intn(max_num)
+	res_int, _ := TimeSeed(max_num)
 	if res_int < min_num {
 		goto NewRandom
 	}
@@ -37,8 +43,6 @@ func PositiveNegative(size int) (int, error) {
 			13, "13",
 		}
 	}
-	time_int := time.Now().UnixNano()
-	r := rand.New(rand.NewSource(time_int))
 	max_num := 1
 	for i := 1; i < size + 1; i++ {
 		max_num = max_num * 10
@@ -50,11 +54,11 @@ func PositiveNegative(size int) (int, error) {
 	}
 	min_num--
 	NewRandom:
-	res_int := r.Intn(max_num)
+	res_int, sed := TimeSeed(max_num)
 	if res_int < min_num {
 		goto NewRandom
 	}
-	if (time_int % 2) == 0 {
+	if (sed.UnixNano() % 2) == 0 {
 		res_int = res_int * -1
 	}
 	return res_int, nil

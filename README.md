@@ -30,6 +30,15 @@ go get -u -v github.com/sinlov/golang_utils
 
 ## randomplus
 
+- TimeSeed
+
+random number by time
+
+```golang
+    random, sed := TimeSeed(999)
+    fmt.Printf("random %v, time sed %v", random, sed.Unix())
+```
+
 - Positive will new random number by size
 
 Like size 8 is [10000000, 99999999]
