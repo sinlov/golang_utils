@@ -57,6 +57,22 @@ func TestPositiveMore(t *testing.T) {
 	}
 }
 
+func BenchmarkPositive(b *testing.B) {
+	test_times := 10000
+	for i := 1; i < test_times; i ++ {
+		got, err := Positive(8)
+		if err != nil {
+			b.Errorf("Postive() error = %v", err)
+
+		}
+		if got < 99999999 && got > 9999999 {
+			//b.Logf("Postive got %v", got)
+		} else {
+			b.Errorf("Postive got number error %v", got)
+		}
+	}
+}
+
 func TestPositiveNegative(t *testing.T) {
 	type args struct {
 		size int
@@ -85,7 +101,7 @@ func TestPositiveNegative(t *testing.T) {
 }
 
 func TestPositiveNegativeMore(t *testing.T) {
-	test_times := 10000
+	test_times := 1000000
 	for i := 1; i < test_times; i ++ {
 		got, err := PositiveNegative(8)
 		if err != nil {
@@ -100,6 +116,26 @@ func TestPositiveNegativeMore(t *testing.T) {
 			t.Logf("PositiveNegative got %v", got)
 		} else {
 			t.Errorf("PositiveNegative got size error %v", got)
+		}
+	}
+}
+
+func BenchmarkPositiveNegative(b *testing.B) {
+	test_times := 10000
+	for i := 1; i < test_times; i ++ {
+		got, err := PositiveNegative(8)
+		if err != nil {
+			b.Errorf("PositiveNegative() error = %v", err)
+
+		}
+		if got < 0 {
+			//b.Logf("change PositiveNegative %v", got)
+			got = got * -1
+		}
+		if got < 99999999 && got > 9999999 {
+			//b.Logf("PositiveNegative got %v", got)
+		} else {
+			b.Errorf("PositiveNegative got size error %v", got)
 		}
 	}
 }

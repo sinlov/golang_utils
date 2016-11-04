@@ -20,14 +20,14 @@ func Positive(size int) (int, error) {
 		}
 	}
 	max_num := 1
+	min_num := 1
 	for i := 1; i < size + 1; i++ {
 		max_num = max_num * 10
+		if  i < size{
+			min_num = min_num * 10
+		}
 	}
 	max_num--
-	min_num := 1
-	for i := 1; i < size; i++ {
-		min_num = min_num * 10
-	}
 	min_num--
 	NewRandom:
 	res_int, _ := TimeSeed(max_num)
@@ -44,14 +44,14 @@ func PositiveNegative(size int) (int, error) {
 		}
 	}
 	max_num := 1
+	min_num := 1
 	for i := 1; i < size + 1; i++ {
 		max_num = max_num * 10
+		if  i < size{
+			min_num = min_num * 10
+		}
 	}
 	max_num--
-	min_num := 1
-	for i := 1; i < size; i++ {
-		min_num = min_num * 10
-	}
 	min_num--
 	NewRandom:
 	res_int, sed := TimeSeed(max_num)
