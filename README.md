@@ -21,7 +21,10 @@ go get -u -v github.com/sinlov/golang_utils
 ## cfg
 
 ```golang
-	cfg := new(Cfg)
+import (
+    "github.com/sinlov/golang_utils/cfg"
+)
+	cfg := new(cfg.Cfg)
 	cfg.InitCfg("config.conf")
 	daemon := cfg.Read("ServerSet", "daemon")
 	port := cfg.Read("ServerSet", "port")
@@ -35,7 +38,10 @@ go get -u -v github.com/sinlov/golang_utils
 random number by time
 
 ```golang
-    random, sed := TimeSeed(999)
+import (
+    "github.com/sinlov/golang_utils/randomplus"
+)
+    random, sed := randomplus.TimeSeed(999)
     fmt.Printf("random %v, time sed %v", random, sed.Unix())
 ```
 
@@ -48,12 +54,12 @@ Like size 8 is [10000000, 99999999]
 Like size 4 is [-9999, -1000] to [1000, 9999]
 
 ```golang
-    got, err := PositiveNegative(8)
+    got, err := randomplus.PositiveNegative(8)
 		if err != nil {
 			fmt.Errorf("PositiveNegative() error = %v", err)
 
 		}
-	got, err := Positive(5)
+	got, err := randomplus.Positive(5)
 		if err != nil {
 			fmt.Errorf("Postive() error = %v", err)
 }
