@@ -19,3 +19,7 @@ fmt.Println(id1 == id2) // true
 ```
 
 more test see [uuid_test.go](uuid_test.go)
+
+# more version of uuid see
+
+https://github.com/satori/go.uuid
