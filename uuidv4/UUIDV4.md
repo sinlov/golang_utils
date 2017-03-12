@@ -6,7 +6,7 @@
 
 more info see http://pubs.opengroup.org/onlinepubs/9696989899/chap5.htm#tagcjh_08_02_01_01
 
-# UUID use
+# UUIDV4 use
 
 ```golang
 var id UUIDV4 = RandV4()
