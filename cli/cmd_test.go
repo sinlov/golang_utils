@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func TestCmdexec(t *testing.T) {
+func TestCmdExec(t *testing.T) {
 	type args struct {
 		cmd    string
 		system string
