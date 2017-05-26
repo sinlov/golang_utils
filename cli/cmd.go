@@ -67,7 +67,6 @@ func (ct CmdTea) CmdTeaRun() (bool, CmdTea) {
 	stdErr, stderrErr := c.StderrPipe()
 	c.Start()
 
-
 	content, err := ioutil.ReadAll(stdout)
 	contentErr, stderrErr := ioutil.ReadAll(stdErr)
 	ct.Env = c.Env
