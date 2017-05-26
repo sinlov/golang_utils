@@ -152,64 +152,6 @@ func CmdExec(chartSet string, cmd ...string) (bool, int, string, string) {
 	return processSuccess, processPid, processStateStr, cmdOut
 }
 
-func (ct *CmdTea) CmdTea(chartSet string, cmd ...string) (bool, error) {
-	var c *exec.Cmd
-	cmdStr := make([]string, 8)
-	for i, ct := range cmd {
-		trim := strings.Trim(ct, " ")
-		cmdStr[i] = trim
-	}
-	cmdString := strings.Join(cmdStr, " ")
-
-	if IsSysWindows() {
-		argArray := strings.Split("/c "+cmdString, " ")
-		c = exec.Command("cmd", argArray...)
-	} else {
-		c = exec.Command("/bin/sh", "-c", cmdString)
-	}
-	stdout, err := c.StdoutPipe() //指向cmd命令的stdout
-	stdErr, stderrErr := c.StderrPipe()
-	c.Start()
-
-	content, err := ioutil.ReadAll(stdout)
-	contentErr, stderrErr := ioutil.ReadAll(stdErr)
-	if err != nil {
-		ct.IsSuccess = false
-		return false, err
-	}
-	if stderrErr != nil {
-		ct.IsSuccess = false
-		return false, stderrErr
-	}
-	var processState os.ProcessState
-	c.ProcessState = &processState
-	processPid := processState.Pid()
-	ct.Pid = processPid
-	processStateStr := processState.String()
-	var dec mahonia.Decoder
-	if chartSet == "" {
-		if IsSysWindows() {
-			chartSet = "gbk"
-		} else {
-			chartSet = "utf-8"
-		}
-	}
-	dec = mahonia.NewDecoder(chartSet)
-	processOut := string(content)
-	processErr := string(contentErr)
-	if len(contentErr) > 0 {
-		ct.IsSuccess = false
-		ct.TeaState = processStateStr
-		ct.Err = dec.ConvertString(processErr)
-		return false, nil
-	} else {
-		ct.IsSuccess = true
-		ct.TeaState = processStateStr
-		ct.Out = dec.ConvertString(processOut)
-		return true, nil
-	}
-}
-
 func CmdRun(chartSet string, cmd ...string) (bool, error) {
 	var c *exec.Cmd
 	cmdStr := make([]string, 8)
