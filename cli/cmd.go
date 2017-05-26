@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/sinlov/golang_utils/jstring"
 )
 
 var exitWithOutZero = errors.New("Has not run command exit code with 0")
@@ -44,13 +43,12 @@ func IsSysWindows() bool {
 // isPrint default is false
 // return isSuccess bool PID processState string and cmdOut string
 func (ct *CmdTea) CmdTeaInit(chartSet string, isPrint bool, cmd ...string) {
-	cmdStr := make([]string, 8)
-	for i, ct := range cmd {
+	var cmdStr []string
+	for _, ct := range cmd {
 		trim := strings.Trim(ct, " ")
-		cmdStr[i] = trim
+		cmdStr = append(cmdStr, trim)
 	}
 	cmdString := strings.Join(cmdStr, " ")
-	cmdString = jstring.SubString(cmdString, 0, len(cmdString)-1)
 	ct.ChartSet = chartSet
 	ct.IsPrint = isPrint
 	ct.CmdStrings = cmdString
@@ -111,13 +109,12 @@ func (ct CmdTea) CmdTeaRun() (bool, CmdTea) {
 
 func CmdExec(chartSet string, cmd ...string) (bool, int, string, string) {
 	var c *exec.Cmd
-	cmdStr := make([]string, 8)
-	for i, ct := range cmd {
+	var cmdStr []string
+	for _, ct := range cmd {
 		trim := strings.Trim(ct, " ")
-		cmdStr[i] = trim
+		cmdStr = append(cmdStr, trim)
 	}
 	cmdString := strings.Join(cmdStr, " ")
-	cmdString = jstring.SubString(cmdString, 0, len(cmdString)-1)
 
 	if IsSysWindows() {
 		argArray := strings.Split("/c "+cmdString, " ")
@@ -150,13 +147,12 @@ func CmdExec(chartSet string, cmd ...string) (bool, int, string, string) {
 
 func CmdRun(chartSet string, cmd ...string) (bool, error) {
 	var c *exec.Cmd
-	cmdStr := make([]string, 8)
-	for i, ct := range cmd {
+	var cmdStr []string
+	for _, ct := range cmd {
 		trim := strings.Trim(ct, " ")
-		cmdStr[i] = trim
+		cmdStr = append(cmdStr, trim)
 	}
 	cmdString := strings.Join(cmdStr, " ")
-	cmdString = jstring.SubString(cmdString, 0, len(cmdString)-1)
 
 	if IsSysWindows() {
 		argArray := strings.Split("/c "+cmdString, " ")

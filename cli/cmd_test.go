@@ -41,7 +41,7 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 			args: args{
 				chartSet: "",
 				isPrint:  true,
-				cmd:      []string{"git", "status"},
+				cmd:      []string{"git", "status "},
 			},
 			want:  true,
 			want1: "exit status 0",
@@ -68,6 +68,7 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 		if !hasSuccess {
 			if tea.ErrorInfo != nil {
 				//t.Logf("tea result\n %s\n", tea)
+				t.Logf("tea CmdStrings: \n%v\n", tea.CmdStrings)
 				t.Logf("tea ShellPath: \n%v\n", tea.ShellPath)
 				t.Logf("tea IsSuccess: \n%v\n", tea.IsSuccess)
 				t.Logf("tea ErrorInfo: \n%v\n", tea.ErrorInfo)
