@@ -19,7 +19,7 @@ type CmdTea struct {
 	CmdStrings string
 	IsSuccess  bool
 	Pid        int
-	TeaState   string
+	ExitState  string
 	Out        string
 	Err        string
 
@@ -63,33 +63,17 @@ func (ct CmdTea) CmdTeaRun() (bool, CmdTea) {
 	} else {
 		c = exec.Command("/bin/sh", "-c", ct.CmdStrings)
 	}
-	stdout, err := c.StdoutPipe()
-	stdErr, stderrErr := c.StderrPipe()
-	c.Start()
+	out, combinedErr := c.CombinedOutput()
 
-	content, err := ioutil.ReadAll(stdout)
-	contentErr, stderrErr := ioutil.ReadAll(stdErr)
 	ct.Env = c.Env
 	ct.ShellPath = c.Path
 	ct.Dir = c.Dir
 	ct.Args = c.Args
 
-	if err != nil {
-		ct.IsSuccess = false
-		ct.ErrorInfo = err
-		return false, ct
-	}
-	if stderrErr != nil {
-		ct.IsSuccess = false
-		ct.ErrorInfo = stderrErr
-		return false, ct
-	}
 	var processState os.ProcessState
 	c.ProcessState = &processState
 	processPid := processState.Pid()
 	ct.Pid = processPid
-	processStateStr := processState.String()
-	ct.TeaState = processStateStr
 	var dec mahonia.Decoder
 	if ct.ChartSet == "" {
 		if IsSysWindows() {
@@ -99,16 +83,17 @@ func (ct CmdTea) CmdTeaRun() (bool, CmdTea) {
 		}
 	}
 	dec = mahonia.NewDecoder(ct.ChartSet)
-	processOut := string(content)
-	processErr := string(contentErr)
-	if len(contentErr) > 0 {
+
+	if combinedErr != nil {
 		ct.IsSuccess = false
-		ct.Err = dec.ConvertString(processErr)
+		ct.Err = dec.ConvertString(string(out))
 		ct.ErrorInfo = exitWithOutZero
+		ct.ExitState = combinedErr.Error()
 		return false, ct
 	} else {
 		ct.IsSuccess = true
-		ct.Out = dec.ConvertString(processOut)
+		ct.Out = dec.ConvertString(string(out))
+		ct.ExitState = processState.String()
 		return true, ct
 	}
 }

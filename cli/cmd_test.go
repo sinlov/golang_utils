@@ -59,6 +59,9 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 		cmdTea := new(CmdTea)
 		cmdTea.CmdTeaInit(tt.args.chartSet, tt.args.cmd...)
 		hasSuccess, tea := cmdTea.CmdTeaRun()
+		if tea.ExitState != tt.want1 {
+			t.Errorf("CmdTeaRun() got = %v, want %v", tea.ExitState, tt.want1)
+		}
 		if !hasSuccess {
 			if tea.ErrorInfo != nil {
 				//t.Logf("tea result\n %s\n", tea)
@@ -68,7 +71,7 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 				t.Logf("tea Pid: \n%v\n", tea.Pid)
 				t.Logf("tea Out: \n%v\n", tea.Out)
 				t.Logf("tea Err: \n%v\n", tea.Err)
-				t.Logf("tea TeaState: \n%v\n", tea.TeaState)
+				t.Logf("tea ExitState: \n%v\n", tea.ExitState)
 			}
 
 		} else {
@@ -78,8 +81,9 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 			t.Logf("tea Pid: \n%v\n", tea.Pid)
 			t.Logf("tea Out: \n%v\n", tea.Out)
 			t.Logf("tea Err: \n%v\n", tea.Err)
-			t.Logf("tea TeaState: \n%v\n", tea.TeaState)
+			t.Logf("tea ExitState: \n%v\n", tea.ExitState)
 		}
+
 	}
 
 }
