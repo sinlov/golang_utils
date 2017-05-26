@@ -14,14 +14,16 @@ import (
 var exitWithOutZero = errors.New("Has not run command exit code with 0")
 
 type CmdTea struct {
-	ErrorInfo  error
 	ChartSet   string
+	IsPrint    bool
 	CmdStrings string
-	IsSuccess  bool
-	Pid        int
-	ExitState  string
-	Out        string
-	Err        string
+
+	ErrorInfo error
+	IsSuccess bool
+	Pid       int
+	ExitState string
+	Out       string
+	Err       string
 
 	Env       []string
 	ShellPath string
@@ -38,8 +40,9 @@ func IsSysWindows() bool {
 }
 
 // chartSet "" default in windows "gbk", other is "utf-8"
+// isPrint default is false
 // return isSuccess bool PID processState string and cmdOut string
-func (ct *CmdTea) CmdTeaInit(chartSet string, cmd ...string) {
+func (ct *CmdTea) CmdTeaInit(chartSet string, isPrint bool, cmd ...string) {
 	cmdStr := make([]string, 8)
 	for i, ct := range cmd {
 		trim := strings.Trim(ct, " ")
@@ -47,6 +50,7 @@ func (ct *CmdTea) CmdTeaInit(chartSet string, cmd ...string) {
 	}
 	cmdString := strings.Join(cmdStr, " ")
 	ct.ChartSet = chartSet
+	ct.IsPrint = isPrint
 	ct.CmdStrings = cmdString
 }
 
@@ -84,15 +88,20 @@ func (ct CmdTea) CmdTeaRun() (bool, CmdTea) {
 	}
 	dec = mahonia.NewDecoder(ct.ChartSet)
 
+	cmdInterfaceOut := dec.ConvertString(string(out))
+	if ct.IsPrint {
+		fmt.Println(cmdInterfaceOut)
+
+	}
 	if combinedErr != nil {
 		ct.IsSuccess = false
-		ct.Err = dec.ConvertString(string(out))
+		ct.Err = cmdInterfaceOut
 		ct.ErrorInfo = exitWithOutZero
 		ct.ExitState = combinedErr.Error()
 		return false, ct
 	} else {
 		ct.IsSuccess = true
-		ct.Out = dec.ConvertString(string(out))
+		ct.Out = cmdInterfaceOut
 		ct.ExitState = processState.String()
 		return true, ct
 	}

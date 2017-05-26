@@ -27,6 +27,7 @@ func TestIsSysWindows(t *testing.T) {
 func TestCmdTea_CmdTeaRun(t *testing.T) {
 	type args struct {
 		chartSet string
+		isPrint  bool
 		cmd      []string
 	}
 	tests := []struct {
@@ -39,6 +40,7 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 			name: "git status",
 			args: args{
 				chartSet: "",
+				isPrint:  true,
 				cmd:      []string{"git", "status"},
 			},
 			want:  true,
@@ -48,6 +50,7 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 			name: "cat this.log",
 			args: args{
 				chartSet: "",
+				isPrint:  true,
 				cmd:      []string{"cat", "this.log"},
 			},
 			want:  false,
@@ -57,7 +60,7 @@ func TestCmdTea_CmdTeaRun(t *testing.T) {
 	for _, tt := range tests {
 
 		cmdTea := new(CmdTea)
-		cmdTea.CmdTeaInit(tt.args.chartSet, tt.args.cmd...)
+		cmdTea.CmdTeaInit(tt.args.chartSet, tt.args.isPrint, tt.args.cmd...)
 		hasSuccess, tea := cmdTea.CmdTeaRun()
 		if tea.ExitState != tt.want1 {
 			t.Errorf("CmdTeaRun() got = %v, want %v", tea.ExitState, tt.want1)
@@ -173,7 +176,7 @@ func TestCmdRun(t *testing.T) {
 			got, got1 := CmdRun(tt.args.chartSet, tt.args.cmd...)
 			fmt.Printf("got: %v error: %v\n", got, got1)
 			if got != tt.want {
-				//t.Errorf("CmdTea() = %v, want %v", got, tt.want)
+				t.Errorf("CmdRun() = %v, want %v", got, tt.want)
 			}
 		})
 	}
