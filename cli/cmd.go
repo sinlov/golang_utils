@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"fmt"
 	"github.com/pkg/errors"
+	"github.com/sinlov/golang_utils/jstring"
 )
 
 var exitWithOutZero = errors.New("Has not run command exit code with 0")
@@ -49,6 +50,7 @@ func (ct *CmdTea) CmdTeaInit(chartSet string, isPrint bool, cmd ...string) {
 		cmdStr[i] = trim
 	}
 	cmdString := strings.Join(cmdStr, " ")
+	cmdString = jstring.SubString(cmdString, 0, len(cmdString)-1)
 	ct.ChartSet = chartSet
 	ct.IsPrint = isPrint
 	ct.CmdStrings = cmdString
@@ -115,6 +117,7 @@ func CmdExec(chartSet string, cmd ...string) (bool, int, string, string) {
 		cmdStr[i] = trim
 	}
 	cmdString := strings.Join(cmdStr, " ")
+	cmdString = jstring.SubString(cmdString, 0, len(cmdString)-1)
 
 	if IsSysWindows() {
 		argArray := strings.Split("/c "+cmdString, " ")
@@ -153,6 +156,7 @@ func CmdRun(chartSet string, cmd ...string) (bool, error) {
 		cmdStr[i] = trim
 	}
 	cmdString := strings.Join(cmdStr, " ")
+	cmdString = jstring.SubString(cmdString, 0, len(cmdString)-1)
 
 	if IsSysWindows() {
 		argArray := strings.Split("/c "+cmdString, " ")
