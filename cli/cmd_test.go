@@ -24,6 +24,66 @@ func TestIsSysWindows(t *testing.T) {
 	}
 }
 
+func TestCmdTea_CmdTeaRun(t *testing.T) {
+	type args struct {
+		chartSet string
+		cmd      []string
+	}
+	tests := []struct {
+		name  string
+		args  args
+		want  bool
+		want1 string
+	}{
+		{
+			name: "git status",
+			args: args{
+				chartSet: "",
+				cmd:      []string{"git", "status"},
+			},
+			want:  true,
+			want1: "exit status 0",
+		},
+		{
+			name: "cat this.log",
+			args: args{
+				chartSet: "",
+				cmd:      []string{"cat", "this.log"},
+			},
+			want:  false,
+			want1: "exit status 1",
+		},
+	}
+	for _, tt := range tests {
+
+		cmdTea := new(CmdTea)
+		cmdTea.CmdTeaInit(tt.args.chartSet, tt.args.cmd...)
+		hasSuccess, tea := cmdTea.CmdTeaRun()
+		if !hasSuccess {
+			if tea.ErrorInfo != nil {
+				//t.Logf("tea result\n %s\n", tea)
+				t.Logf("tea ShellPath: \n%v\n", tea.ShellPath)
+				t.Logf("tea IsSuccess: \n%v\n", tea.IsSuccess)
+				t.Logf("tea ErrorInfo: \n%v\n", tea.ErrorInfo)
+				t.Logf("tea Pid: \n%v\n", tea.Pid)
+				t.Logf("tea Out: \n%v\n", tea.Out)
+				t.Logf("tea Err: \n%v\n", tea.Err)
+				t.Logf("tea TeaState: \n%v\n", tea.TeaState)
+			}
+
+		} else {
+			//t.Logf("tea result\n %s\n", tea)
+			t.Logf("tea IsSuccess: \n%v\n", tea.IsSuccess)
+			t.Logf("tea ErrorInfo: \n%v\n", tea.ErrorInfo)
+			t.Logf("tea Pid: \n%v\n", tea.Pid)
+			t.Logf("tea Out: \n%v\n", tea.Out)
+			t.Logf("tea Err: \n%v\n", tea.Err)
+			t.Logf("tea TeaState: \n%v\n", tea.TeaState)
+		}
+	}
+
+}
+
 func TestCmdExec(t *testing.T) {
 	type args struct {
 		chartSet string
@@ -73,6 +133,44 @@ func TestCmdExec(t *testing.T) {
 			//if got2 != tt.want2 {
 			//  t.Errorf("CmdExec() got2 = %v, want %v", got2, tt.want2)
 			//}
+		})
+	}
+}
+
+func TestCmdRun(t *testing.T) {
+	type args struct {
+		chartSet string
+		cmd      []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "git status",
+			args: args{
+				chartSet: "",
+				cmd:      []string{"git", "status"},
+			},
+			want: true,
+		},
+		{
+			name: "cat this.log",
+			args: args{
+				chartSet: "",
+				cmd:      []string{"cat", "this.log"},
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := CmdRun(tt.args.chartSet, tt.args.cmd...)
+			fmt.Printf("got: %v error: %v\n", got, got1)
+			if got != tt.want {
+				//t.Errorf("CmdTea() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

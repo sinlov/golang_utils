@@ -8,6 +8,6 @@ import (
 
 func TestBlack(t *testing.T) {
 	fmt.Sprintf("\x1b[0;%dm%s\x1b[0m", 30, "123")
-	Black("CLi Black color")
+	fmt.Println(Red("CLi Red color"))
 	assert.T(t, true, nil)
 }
