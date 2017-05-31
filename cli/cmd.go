@@ -168,8 +168,8 @@ func CmdRun(chartSet string, cmd ...string) (bool, error) {
 		}
 	}
 	dec := mahonia.NewDecoder(chartSet)
-	stdout, err := c.StdoutPipe() //指向cmd命令的stdout
-	stdErr, stderrErr := c.StderrPipe()
+	stdout, err := c.StdoutPipe() //print to cmd stdout
+	stdErr, stderrErr := c.StderrPipe()//print to cmd stdErr
 	c.Start()
 	content, err := ioutil.ReadAll(stdout)
 	contentErr, stderrErr := ioutil.ReadAll(stdErr)
