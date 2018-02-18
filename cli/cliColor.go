@@ -56,7 +56,7 @@ func Black(str string) string {
 }
 
 func FmtBlack(str string, a ... interface{}) {
-	fmt.Print(Black(fmt.Sprintf(str, a)))
+	fmt.Print(Black(fmt.Sprintf(str, a...)))
 }
 
 func Red(str string) string {
@@ -64,7 +64,7 @@ func Red(str string) string {
 }
 
 func FmtRed(str string, a ... interface{}) {
-	fmt.Print(Red(fmt.Sprintf(str, a)))
+	fmt.Print(Red(fmt.Sprintf(str, a...)))
 }
 
 func Green(str string) string {
@@ -72,7 +72,7 @@ func Green(str string) string {
 }
 
 func FmtGreen(str string, a ... interface{}) {
-	fmt.Print(Green(fmt.Sprintf(str, a)))
+	fmt.Print(Green(fmt.Sprintf(str, a...)))
 }
 
 func Yellow(str string) string {
@@ -80,7 +80,7 @@ func Yellow(str string) string {
 }
 
 func FmtYellow(str string, a ... interface{}) {
-	fmt.Print(Yellow(fmt.Sprintf(str, a)))
+	fmt.Print(Yellow(fmt.Sprintf(str, a...)))
 }
 
 func Blue(str string) string {
@@ -88,7 +88,7 @@ func Blue(str string) string {
 }
 
 func FmtBlue(str string, a ... interface{}) {
-	fmt.Print(Blue(fmt.Sprintf(str, a)))
+	fmt.Print(Blue(fmt.Sprintf(str, a...)))
 }
 
 func Magenta(str string) string {
@@ -96,7 +96,7 @@ func Magenta(str string) string {
 }
 
 func FmtMagenta(str string, a ... interface{}) {
-	fmt.Print(Magenta(fmt.Sprintf(str, a)))
+	fmt.Print(Magenta(fmt.Sprintf(str, a...)))
 }
 
 func Cyan(str string) string {
@@ -104,7 +104,7 @@ func Cyan(str string) string {
 }
 
 func FmtCyan(str string, a ... interface{}) {
-	fmt.Print(Cyan(fmt.Sprintf(str, a)))
+	fmt.Print(Cyan(fmt.Sprintf(str, a...)))
 }
 
 func White(str string) string {
@@ -112,5 +112,5 @@ func White(str string) string {
 }
 
 func FmtWhite(str string, a ... interface{}) {
-	fmt.Print(White(fmt.Sprintf(str, a)))
+	fmt.Print(White(fmt.Sprintf(str, a...)))
 }
