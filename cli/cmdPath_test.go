@@ -3,6 +3,7 @@ package cli
 import (
 	"fmt"
 	"testing"
+	"runtime"
 )
 
 func TestCommandPath(t *testing.T) {
@@ -79,12 +80,15 @@ func TestHome(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:"test Home",
-			want:"/Users/sinlov",
+			name: "test Home",
+			want: "/Users/sinlov",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if runtime.GOOS == "windows" {
+				t.Skipf("%s %s", tt.name, "now system windows so pass homeUnix!")
+			}
 			got, err := Home()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Home() error = %v, wantErr %v", err, tt.wantErr)
@@ -104,12 +108,15 @@ func Test_homeUnix(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:"Test_homeUnix",
-			want:"/Users/sinlov",
+			name: "Test_homeUnix",
+			want: "/Users/sinlov",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if runtime.GOOS == "windows" {
+				t.Skipf("%s %s", tt.name, "now system windows so pass homeUnix!")
+			}
 			got, err := homeUnix()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("homeUnix() error = %v, wantErr %v", err, tt.wantErr)
@@ -129,12 +136,15 @@ func Test_homeWindows(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:"Test_homeUnix",
-			want:"C:\\User\\sinlov",
+			name: "Test_homeUnix",
+			want: "C:\\User\\sinlov",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if runtime.GOOS != "windows" {
+				t.Skipf("%s %s", tt.name, "not windows system so pass!")
+			}
 			got, err := homeWindows()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("homeWindows() error = %v, wantErr %v", err, tt.wantErr)
