@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"testing"
-	"runtime"
 )
 
 func TestCommandPath(t *testing.T) {
@@ -86,7 +85,7 @@ func TestHome(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if runtime.GOOS == "windows" {
+			if IsSysWindows() {
 				t.Skipf("%s %s", tt.name, "now system windows so pass homeUnix!")
 			}
 			got, err := Home()
@@ -114,7 +113,7 @@ func Test_homeUnix(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if runtime.GOOS == "windows" {
+			if IsSysWindows() {
 				t.Skipf("%s %s", tt.name, "now system windows so pass homeUnix!")
 			}
 			got, err := homeUnix()
@@ -142,7 +141,7 @@ func Test_homeWindows(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if runtime.GOOS != "windows" {
+			if !IsSysWindows() {
 				t.Skipf("%s %s", tt.name, "not windows system so pass!")
 			}
 			got, err := homeWindows()
