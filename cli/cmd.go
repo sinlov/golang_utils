@@ -107,6 +107,7 @@ func (ct CmdTea) CmdTeaRun() (bool, CmdTea) {
 	}
 }
 
+// chartSet "" default in windows "gbk", other is "utf-8"
 func CmdExec(chartSet string, cmd ...string) (bool, int, string, string) {
 	var c *exec.Cmd
 	var cmdStr []string
@@ -136,15 +137,21 @@ func CmdExec(chartSet string, cmd ...string) (bool, int, string, string) {
 		if chartSet == "" {
 			chartSet = "gbk"
 		}
-		dec := mahonia.NewDecoder(chartSet)
-		cmdOut = dec.ConvertString(cmdOut)
+	} else {
+		if chartSet == "" {
+			chartSet = "utf-8"
+		}
 	}
+
+	dec := mahonia.NewDecoder(chartSet)
+	cmdOut = dec.ConvertString(cmdOut)
 	if err != nil {
 		return false, processPid, err.Error(), cmdOut
 	}
 	return processSuccess, processPid, processStateStr, cmdOut
 }
 
+// chartSet "" default in windows "gbk", other is "utf-8"
 func CmdRun(chartSet string, cmd ...string) (bool, error) {
 	var c *exec.Cmd
 	var cmdStr []string
@@ -168,8 +175,8 @@ func CmdRun(chartSet string, cmd ...string) (bool, error) {
 		}
 	}
 	dec := mahonia.NewDecoder(chartSet)
-	stdout, err := c.StdoutPipe() //print to cmd stdout
-	stdErr, stderrErr := c.StderrPipe()//print to cmd stdErr
+	stdout, err := c.StdoutPipe()       //print to cmd stdout
+	stdErr, stderrErr := c.StderrPipe() //print to cmd stdErr
 	c.Start()
 	content, err := ioutil.ReadAll(stdout)
 	contentErr, stderrErr := ioutil.ReadAll(stdErr)
