@@ -1,49 +1,73 @@
 package files
 
-import "testing"
+import (
+	"github.com/smartystreets/goconvey/convey"
+	"testing"
+	"github.com/sinlov/golang_utils/cli"
+	"path/filepath"
+)
+
+func TestIsPathExist(t *testing.T) {
+	convey.Convey("mock TestIsPathExist", t, func() {
+		// mock
+		home, err := cli.Home()
+		if err != nil {
+			t.Logf("find Home err %v\n", err)
+		}
+		notExistPath := filepath.Join(home, "zzzzz")
+		convey.Convey("do TestIsPathExist", func() {
+			// do
+			exist := isPathExist(home)
+			pathNotExist := isPathExist(notExistPath)
+			convey.Convey("verify TestIsPathExist", func() {
+				// verify
+				convey.So(exist, convey.ShouldEqual, true)
+				convey.So(pathNotExist, convey.ShouldEqual, false)
+			})
+		})
+	})
+}
 
 func TestIsFileExist(t *testing.T) {
-	type args struct {
-		filePath string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-	// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := IsFileExist(tt.args.filePath); got != tt.want {
-				t.Errorf("IsFileExist() = %v, want %v", got, tt.want)
-			}
+	convey.Convey("mock TestIsFileExist", t, func() {
+		// mock
+		homePath, err := cli.Home()
+		if err != nil {
+			t.Logf("find Home err %v\n", err)
+		}
+		userBashPath := filepath.Join(homePath, ".bashrc")
+		userNotExistRCPath := filepath.Join(homePath, ".notExistrc")
+		convey.Convey("do TestIsFileExist", func() {
+			// do
+			userBashExist := IsFileExist(userBashPath)
+			userNotExistRC := IsFileExist(userNotExistRCPath)
+			convey.Convey("verify TestIsFileExist", func() {
+				// verify
+				convey.So(userBashExist, convey.ShouldEqual, true)
+				convey.So(userNotExistRC, convey.ShouldEqual, false)
+			})
 		})
-	}
+	})
 }
 
 func TestReadFileAsString(t *testing.T) {
-	type args struct {
-		filePath string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    string
-		wantErr bool
-	}{
-	// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := ReadFileAsString(tt.args.filePath)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("ReadFileAsString() error = %v, wantErr %v", err, tt.wantErr)
-				return
+	convey.Convey("mock TestReadFileAsString", t, func() {
+		// mock
+		homePath, err := cli.Home()
+		if err != nil {
+			t.Logf("find Home err %v\n", err)
+		}
+		userBashRcPath := filepath.Join(homePath, ".bashrc")
+		convey.Convey("do TestReadFileAsString", func() {
+			// do
+			fileAsString, err := ReadFileAsString(userBashRcPath)
+			if err != nil {
+				t.Logf("ReadFileAsString err %v\n", fileAsString)
 			}
-			if got != tt.want {
-				t.Errorf("ReadFileAsString() = %v, want %v", got, tt.want)
-			}
+			convey.Convey("verify TestReadFileAsString", func() {
+				// verify
+				convey.So(fileAsString, convey.ShouldNotBeNil)
+			})
 		})
-	}
+	})
 }
