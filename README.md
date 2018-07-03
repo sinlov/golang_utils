@@ -2,6 +2,8 @@
 
 this is self golang utils
 
+> code use [go-code-convention](https://github.com/Unknwon/go-code-convention/blob/master/zh-CN/README.md)
+
 # base use
 
 - add lib of lib
