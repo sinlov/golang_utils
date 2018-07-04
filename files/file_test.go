@@ -17,8 +17,8 @@ func TestIsPathExist(t *testing.T) {
 		notExistPath := filepath.Join(home, "zzzzz")
 		convey.Convey("do TestIsPathExist", func() {
 			// do
-			exist := isPathExist(home)
-			pathNotExist := isPathExist(notExistPath)
+			exist := IsPathExist(home)
+			pathNotExist := IsPathExist(notExistPath)
 			convey.Convey("verify TestIsPathExist", func() {
 				// verify
 				convey.So(exist, convey.ShouldEqual, true)
