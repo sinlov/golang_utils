@@ -20,7 +20,7 @@ type sysFile struct {
 	fName  string
 	fLink  string
 	fSize  int64
-	fMtime time.Time
+	fMTime time.Time
 	fPerm  os.FileMode
 }
 
@@ -28,15 +28,6 @@ type F struct {
 	files []*sysFile
 }
 
-//  _______ _________ _        _        _______
-// (  ____ \\__   __/( (    /|( \      (  ___  )|\     /|
-// | (    \/   ) (   |  \  ( || (      | (   ) || )   ( |
-// | (_____    | |   |   \ | || |      | |   | || |   | |
-// (_____  )   | |   | (\ \) || |      | |   | |( (   ) )
-//       ) |   | |   | | \   || |      | |   | | \ \_/ /
-// /\____) |___) (___| )  \  || (____/\| (___) |  \   /
-// \_______)\_______/|/    )_)(_______/(_______)   \_/
-//
 func (f *F) visit(path string, file os.FileInfo, err error) error {
 	if file == nil {
 		return err
@@ -53,7 +44,7 @@ func (f *F) visit(path string, file os.FileInfo, err error) error {
 		fName:  path,
 		fType:  tp,
 		fPerm:  file.Mode(),
-		fMtime: file.ModTime(),
+		fMTime: file.ModTime(),
 		fSize:  file.Size(),
 	}
 	f.files = append(f.files, inoFile)
