@@ -93,7 +93,7 @@ func WalkDirFileAll(dirPath, suffix string) (files []string, err error) {
 	files = make([]string, 0, 30)
 	suffix = strings.ToUpper(suffix) // Ignore the case of suffix matching
 
-	err = filepath.Walk(dirPath, func(filename string, fi os.FileInfo, err error) error {
+	err = filepath.Walk(dirPath, func(name string, fi os.FileInfo, err error) error {
 		//if err != nil { // ignore error?
 		// return err
 		//}
@@ -103,11 +103,32 @@ func WalkDirFileAll(dirPath, suffix string) (files []string, err error) {
 		}
 
 		if strings.HasSuffix(strings.ToUpper(fi.Name()), suffix) {
-			files = append(files, filename)
+			files = append(files, name)
 		}
 
 		return nil
 	})
 
 	return files, err
+}
+
+// can get full folder and in sub-folder folder, ignore all file, and including itself
+// dirPth -> for walk path
+func WalkDirFolderAll(dirPath string) (folder []string, err error) {
+	folder = make([]string, 0, 30)
+	err = filepath.Walk(dirPath, func(name string, fi os.FileInfo, err error) error {
+		//if err != nil { // ignore error?
+		// return err
+		//}
+
+		if fi.IsDir() { // ignore file
+			folder = append(folder, name)
+		} else {
+			return nil
+		}
+
+		return nil
+	})
+
+	return folder, err
 }

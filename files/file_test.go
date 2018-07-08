@@ -227,3 +227,29 @@ func TestWalkDirFileAll(t *testing.T) {
 		})
 	})
 }
+
+func TestWalkDirFolderAll(t *testing.T) {
+	convey.Convey("mock TestWalkDirFolderAll", t, func() {
+		// mock
+		mockFrom, mockTo := mockRandomFiles("mockFrom", "mockTo")
+		mockDirsAndFileInMockFolder(mockFrom, t)
+
+		t.Logf("mockFrom %v, mockTo %v\n", mockFrom, mockTo)
+
+		convey.Convey("do TestWalkDirFolderAll", func() {
+			// do
+			folders, err := WalkDirFolderAll(mockFrom)
+			if err != nil {
+				t.Fatalf("WalkDirFolderAll error %v", err.Error())
+			}
+			convey.Convey("verify TestWalkDirFolderAll", func() {
+				// verify
+				for _, walk := range folders {
+					t.Logf("WalkDirFolderAll item %v", walk)
+				}
+				convey.So("", convey.ShouldEqual, "")
+
+			})
+		})
+	})
+}
