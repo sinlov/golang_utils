@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/Pallinder/go-randomdata"
+  packages = ["."]
+  revision = "15df0648130a623e418886f81b2aaecd0a00547b"
+
+[[projects]]
   name = "github.com/Unknwon/com"
   packages = ["."]
   revision = "28b053d5a2923b87ce8c5a08f3af779894a72758"
@@ -73,11 +79,11 @@
   branch = "master"
   name = "golang.org/x/net"
   packages = ["route"]
-  revision = "ed29d75add3d7c4bf7ca65aac0c6df3d1420216f"
+  revision = "32a936f46389aa10549d60bd7833e54b01685d09"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e602eef97e77d805758df21b0c6d0130709148a5590e605d7ebaeedbb6a80de8"
+  inputs-digest = "6f9688546c974621e20117958493a57387d4094098505301cd1263de1b09e06a"
   solver-name = "gps-cdcl"
   solver-version = 1
