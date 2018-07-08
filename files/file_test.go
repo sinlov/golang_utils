@@ -8,7 +8,49 @@ import (
 	"github.com/Pallinder/go-randomdata"
 	"github.com/Unknwon/com"
 	"os"
+	"strings"
 )
+
+func findOrCreateCodeBuildPath() string {
+	goPathEnv := os.Getenv("GOPATH")
+	goPathEnvS := strings.Split(goPathEnv, ":")
+	for _, path := range goPathEnvS {
+		codePath := filepath.Join(path, "src", gitHost, gitUser, gitRepo)
+		if IsPathExist(codePath) {
+			projectBuildPath := filepath.Join(codePath, "build")
+			if IsFileExist(projectBuildPath) {
+				return projectBuildPath
+			} else {
+				os.MkdirAll(projectBuildPath, os.ModePerm)
+				return projectBuildPath
+			}
+		}
+	}
+	return ""
+}
+
+func cleanAndReCreatePath(path string) error {
+	if IsPathExist(path) {
+		err := os.RemoveAll(path)
+		if err != nil {
+			return err
+		}
+	}
+	err := os.MkdirAll(path, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func mockRandomFiles(form, to string) (mockFrom, mockTo string) {
+	buildPath := findOrCreateCodeBuildPath()
+	mockFrom = filepath.Join(buildPath, form)
+	cleanAndReCreatePath(mockFrom)
+	mockTo = filepath.Join(buildPath, to)
+	cleanAndReCreatePath(mockTo)
+	return mockFrom, mockTo
+}
 
 func mockDirsAndFileInMockFolder(mockFrom string, t *testing.T) {
 	randomAddressTextPath := filepath.Join(mockFrom, randomdata.RandStringRunes(10))

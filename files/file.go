@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+// is path exist, most of this use check folder
+// path -> path for check
 func IsPathExist(path string) bool {
 	_, err := os.Stat(path)
 	if err != nil {
@@ -20,6 +22,8 @@ func IsPathExist(path string) bool {
 	return true
 }
 
+// is file exist
+// filePath -> path of file
 func IsFileExist(filePath string) bool {
 	f, err := os.Open(filePath)
 	if err != nil || os.IsNotExist(err) {
@@ -29,6 +33,8 @@ func IsFileExist(filePath string) bool {
 	return true
 }
 
+// read file content as string
+// filePath -> path of file
 func ReadFileAsString(filePath string) (string, error) {
 	b, err := ioutil.ReadFile(filePath)
 	if err != nil {
