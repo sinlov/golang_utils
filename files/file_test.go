@@ -2,9 +2,9 @@ package files
 
 import (
 	"github.com/Pallinder/go-randomdata"
-	"github.com/Unknwon/com"
 	"github.com/sinlov/golang_utils/cli"
 	"github.com/stretchr/testify/assert"
+	"github.com/unknwon/com"
 	"os"
 	"path/filepath"
 	"strings"

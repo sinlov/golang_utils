@@ -1,8 +1,8 @@
 package files
 
 import (
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"

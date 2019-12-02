@@ -1,9 +1,9 @@
 package uuidv4
 
 import (
+	"fmt"
 	"strings"
 	"testing"
-	"fmt"
 )
 
 func TestUUIDBase(t *testing.T) {
@@ -18,7 +18,7 @@ func TestUUIDBase(t *testing.T) {
 	id2 := MustFromStrV4("1870747db26c450795181ca62bc66e5d")
 	fmt.Printf("uuid FromStrV4: %v\n", id1)
 	fmt.Printf("uuid MustFromStrV4: %v\n", id2)
-	if  id1 != id2{
+	if id1 != id2 {
 		t.Errorf("uuid FromStrV4 %v | not MustFromStrV4 %v\n", id1, id2)
 	}
 }

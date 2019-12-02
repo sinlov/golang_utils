@@ -7,7 +7,7 @@
 
 this is self golang utils
 
-> code use [go-code-convention](https://github.com/Unknwon/go-code-convention/blob/master/zh-CN/README.md)
+> code use [go-code-convention](https://github.com/unknwon/go-code-convention/blob/master/zh-CN/README.md)
 > and CI check
 
 # base use

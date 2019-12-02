@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 	"fmt"
-	"github.com/Unknwon/com"
+	"github.com/unknwon/com"
 )
 
 const (
