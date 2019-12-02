@@ -47,7 +47,7 @@ func TestStack(t *testing.T) {
 
 	empty := stack.Empty()
 	if empty {
-		t.Errorf("stack.Empty() failed. Got %d, expected false.", empty)
+		t.Errorf("stack.Empty() failed. Got %v, expected false.", empty)
 	}
 
 	value = stack.Pop().(int)
@@ -57,7 +57,7 @@ func TestStack(t *testing.T) {
 
 	empty = stack.Empty()
 	if !empty {
-		t.Errorf("stack.Empty() failed. Got %d, expected true.", empty)
+		t.Errorf("stack.Empty() failed. Got %v, expected true.", empty)
 	}
 
 	nilValue := stack.Peak()

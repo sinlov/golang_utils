@@ -1,9 +1,9 @@
 package cfg
 
 import (
-	"testing"
-	"github.com/bmizerany/assert"
 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestInitCfg(t *testing.T) {

@@ -1,8 +1,9 @@
 package format
 
 import (
-	"testing"
 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
 	"time"
 )
 
@@ -20,6 +21,7 @@ func TestLayoutNowTime(t *testing.T) {
 			args: args{
 				layout: "2006-01-02 15:04:05 .000",
 			},
+			want: time.Now().Format("2006-01-02 15:04:05 .000"),
 		},
 	}
 	for _, tt := range tests {
@@ -27,10 +29,7 @@ func TestLayoutNowTime(t *testing.T) {
 
 			got := LayoutNowTime(tt.args.layout)
 			fmt.Printf("got : %v local %v\n", got, time.Now().Local().String())
-			if got != tt.want {
-				t.Errorf("LayoutNowTime() = %v, want %v", got, tt.want)
-			}
-
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }

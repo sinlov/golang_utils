@@ -1,9 +1,9 @@
 package structure
 
 import (
-	"testing"
 	"fmt"
-	"github.com/bmizerany/assert"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestNewStack(t *testing.T) {
@@ -24,18 +24,18 @@ func TestNewStack(t *testing.T) {
 	afterPopLen := stack.Len()
 	assert.Equal(t, afterPopLen, 3)
 	fmt.Printf("stack after Pop Len %v\n", value)
-	afterPopPeak :=stack.Peak().(int)
-	fmt.Printf("stack after Pop Peak %v\n",afterPopPeak)
-	isEmpty :=stack.Empty()
+	afterPopPeak := stack.Peak().(int)
+	fmt.Printf("stack after Pop Peak %v\n", afterPopPeak)
+	isEmpty := stack.Empty()
 	assert.NotEqual(t, isEmpty, true)
-	fmt.Printf("now stack isEmpty %v\n",isEmpty)
+	fmt.Printf("now stack isEmpty %v\n", isEmpty)
 	stack.Pop()
 	stack.Pop()
 	stack.Pop()
 	nowIsEmpty := stack.Empty()
 	assert.Equal(t, nowIsEmpty, true)
-	fmt.Printf("now stack isEmpty %v\n",nowIsEmpty)
+	fmt.Printf("now stack isEmpty %v\n", nowIsEmpty)
 	nilValue := stack.Pop()
 	assert.Equal(t, nilValue, nil)
-	fmt.Printf("Empty stack Pop nil value %v\n",nilValue)
+	fmt.Printf("Empty stack Pop nil value %v\n", nilValue)
 }

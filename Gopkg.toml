@@ -35,7 +35,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/bmizerany/assert"
+  name = "github.com/stretchr/testify"
 
 [[constraint]]
   name = "github.com/pkg/errors"

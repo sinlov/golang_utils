@@ -1,13 +1,14 @@
 package hashcode
 
 import (
-	"unsafe"
+	"fmt"
 	"hash/fnv"
+	"io"
 	"math/rand"
 	"reflect"
-	"io"
 	"sync"
 	"sync/atomic"
+	"unsafe"
 )
 
 const (
@@ -15,7 +16,7 @@ const (
 )
 
 var (
-	ErrorNotSUPPORT = error("can not support")
+	ErrorNotSUPPORT = fmt.Errorf("can not support")
 
 	intSize = unsafe.Sizeof(1)
 	ptrSize = unsafe.Sizeof((*int)(nil))
@@ -73,7 +74,7 @@ func HashInterface(k interface{}, isRead bool) (uint32, error) {
 		h.Write((*((*[1]byte)(unsafe.Pointer(&v))))[:])
 		code = h.Sum32()
 	case int:
-		h.Write((*((*[intSize]byte)(unsafe.Pointer(&v))))[:])
+		h.Write((*((*[]byte)(unsafe.Pointer(&v))))[:])
 		code = h.Sum32()
 	case int8:
 		h.Write((*((*[1]byte)(unsafe.Pointer(&v))))[:])
@@ -88,7 +89,7 @@ func HashInterface(k interface{}, isRead bool) (uint32, error) {
 		h.Write((*((*[8]byte)(unsafe.Pointer(&v))))[:])
 		code = h.Sum32()
 	case uint:
-		h.Write((*((*[intSize]byte)(unsafe.Pointer(&v))))[:])
+		h.Write((*((*[]byte)(unsafe.Pointer(&v))))[:])
 		code = h.Sum32()
 	case uint8:
 		h.Write((*((*[1]byte)(unsafe.Pointer(&v))))[:])
@@ -103,7 +104,7 @@ func HashInterface(k interface{}, isRead bool) (uint32, error) {
 		h.Write((*((*[8]byte)(unsafe.Pointer(&v))))[:])
 		code = h.Sum32()
 	case uintptr:
-		h.Write((*((*[intSize]byte)(unsafe.Pointer(&v))))[:])
+		h.Write((*((*[]byte)(unsafe.Pointer(&v))))[:])
 		code = h.Sum32()
 	case float32:
 		//Nan != Nan, so use a rand number to generate hash code

@@ -1,3 +1,8 @@
+[![TravisBuildStatus](https://api.travis-ci.org/sinlov/golang_utils.svg?branch=master)](https://travis-ci.org/sinlov/golang_utils)
+[![GoDoc](https://godoc.org/github.com/sinlov/golang_utils?status.png)](https://godoc.org/github.com/sinlov/golang_utils/)
+[![GoReportCard](https://goreportcard.com/badge/github.com/sinlov/golang_utils)](https://goreportcard.com/report/github.com/sinlov/golang_utils)
+[![codecov](https://codecov.io/gh/sinlov/golang_utils/branch/master/graph/badge.svg)](https://codecov.io/gh/sinlov/golang_utils)
+
 # golang_utils
 
 this is self golang utils
