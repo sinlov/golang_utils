@@ -1,7 +1,6 @@
 package netUtils
 
 import (
-	"fmt"
 	"golang.org/x/net/route"
 )
 
@@ -16,8 +15,8 @@ func GetGateway() ([4]byte, error) {
 	}
 	var outGateway [4]byte
 	for _, message := range messages {
-		route_message := message.(*route.RouteMessage)
-		addresses := route_message.Addrs
+		routeMessage := message.(*route.RouteMessage)
+		addresses := routeMessage.Addrs
 
 		var destination, gateway *route.Inet4Addr
 		ok := false
@@ -35,7 +34,8 @@ func GetGateway() ([4]byte, error) {
 		}
 
 		if destination.IP == defaultGateway {
-			fmt.Println(gateway.IP)
+			continue
+		} else {
 			outGateway = gateway.IP
 			return destination.IP, nil
 		}

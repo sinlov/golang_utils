@@ -13,6 +13,7 @@ func TestGetGateway(t *testing.T) {
 	}{
 		{
 			name: "base",
+			want: [4]byte{0, 0, 0, 0},
 		},
 	}
 	for _, tt := range tests {
@@ -23,7 +24,7 @@ func TestGetGateway(t *testing.T) {
 				return
 			}
 			t.Logf("got: %v, err %s", got, err)
-			assert.NotNil(t, got)
+			assert.NotEqual(t, tt.want, got)
 			//if !reflect.DeepEqual(got, tt.want) {
 			//	t.Errorf("GetGateway() = %v, want %v", got, tt.want)
 			//}
