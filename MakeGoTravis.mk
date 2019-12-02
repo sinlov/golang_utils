@@ -1,7 +1,7 @@
 # this file must use as base Makefile
 
 travisInstall:
-	GO111MODULE=on go get -t -v ./...
+	GOPROXY=$(ENV_GO_PROXY) GO111MODULE=on go get -t -v ./...
 
 travisTest:
 	GO111MODULE=on go test -v ./... -timeout 1m
