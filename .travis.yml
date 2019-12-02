@@ -9,7 +9,7 @@ matrix:
     - go: tip
 
 install:
-  - export GO111MODULE=on && go mod vendor
+  - export GO111MODULE=on && go mod download && go mod vendor
   - go get -t -v ./...
 
 script:

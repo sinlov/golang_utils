@@ -1,9 +1,9 @@
 package uuidv4
 
 import (
+	"fmt"
 	"strings"
 	"testing"
-	"fmt"
 )
 
 // BenchmarkDuplicates check the first 1024 generated UUIDV4 for duplicates
