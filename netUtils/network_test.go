@@ -34,3 +34,18 @@ func TestNetworkLocalIPv6(t *testing.T) {
 	// verify NetworkLocalIPv6
 	assert.NotEqual(t, notWant, iPv6)
 }
+
+func TestNetworkMacAddr(t *testing.T) {
+	// mock NetworkMacAddr
+	notWant := "00:00:00:00"
+	//t.Logf("mock NetworkMacAddr")
+	// do NetworkMacAddr
+	//t.Logf("do NetworkMacAddr")
+	macAddr, err := NetworkMacAddr()
+	if err != nil {
+		t.Errorf("NetworkMacAddr err: %v", err)
+	}
+	t.Logf("got NetworkMacAddr: %v", macAddr)
+	// verify NetworkMacAddr
+	assert.NotEqual(t, notWant, macAddr)
+}

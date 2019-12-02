@@ -14,7 +14,7 @@ func NetworkLocalIPv4() (ipv4 string, err error) {
 	)
 	// all net interface
 	if netAdds, err = net.InterfaceAddrs(); err != nil {
-		return
+		return "", err
 	}
 	// get first not lo address
 	for _, addr = range netAdds {
@@ -32,7 +32,7 @@ func NetworkLocalIPv4() (ipv4 string, err error) {
 	return
 }
 
-func NetworkLocalIPv6() (ipv4 string, err error) {
+func NetworkLocalIPv6() (ipv6 string, err error) {
 	var (
 		netAdds []net.Addr
 		addr    net.Addr
@@ -41,20 +41,48 @@ func NetworkLocalIPv6() (ipv4 string, err error) {
 	)
 	// all net interface
 	if netAdds, err = net.InterfaceAddrs(); err != nil {
-		return
+		return "", err
 	}
 	// get first not lo address
 	for _, addr = range netAdds {
-		// must ipv4, ipv6
+		// must ipv6, ipv6
 		if ipNet, isIpNet = addr.(*net.IPNet); isIpNet && !ipNet.IP.IsLoopback() {
 			// skip IPv4
 			if ipNet.IP.To16() != nil {
-				ipv4 = ipNet.IP.String()
+				ipv6 = ipNet.IP.String()
 				return
 			}
 		}
 	}
 
 	err = fmt.Errorf("ERR NO LOCAL IP FOUND")
+	return
+}
+
+func NetworkMacAddr() (macAddr string, err error) {
+	var (
+		netAdds []net.Addr
+		ipNet   *net.IPNet // IP addr
+		isIpNet bool
+	)
+
+	interfaces, err := net.Interfaces()
+	if err != nil {
+		return "", err
+	}
+	// all net interface
+	if netAdds, err = net.InterfaceAddrs(); err != nil {
+		return "", err
+	}
+	for id, addr := range netAdds {
+		if ipNet, isIpNet = addr.(*net.IPNet); isIpNet && !ipNet.IP.IsLoopback() {
+			inter := interfaces[id]
+			if inter.HardwareAddr == nil {
+				continue
+			}
+			macAddr = inter.HardwareAddr.String()
+			return
+		}
+	}
 	return
 }
