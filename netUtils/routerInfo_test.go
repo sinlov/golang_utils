@@ -1,9 +1,8 @@
 package netUtils
 
 import (
-	"reflect"
+	"github.com/stretchr/testify/assert"
 	"testing"
-	"fmt"
 )
 
 func TestGetGateway(t *testing.T) {
@@ -14,7 +13,6 @@ func TestGetGateway(t *testing.T) {
 	}{
 		{
 			name: "base",
-
 		},
 	}
 	for _, tt := range tests {
@@ -24,10 +22,11 @@ func TestGetGateway(t *testing.T) {
 				t.Errorf("GetGateway() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			fmt.Printf("got: %v, err %s", got, err)
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetGateway() = %v, want %v", got, tt.want)
-			}
+			t.Logf("got: %v, err %s", got, err)
+			assert.NotNil(t, got)
+			//if !reflect.DeepEqual(got, tt.want) {
+			//	t.Errorf("GetGateway() = %v, want %v", got, tt.want)
+			//}
 		})
 	}
 }

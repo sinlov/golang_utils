@@ -1,8 +1,8 @@
 package netUtils
 
 import (
-	"golang.org/x/net/route"
 	"fmt"
+	"golang.org/x/net/route"
 )
 
 var defaultGateway = [4]byte{0, 0, 0, 0}

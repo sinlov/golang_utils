@@ -13,5 +13,5 @@ require (
 	github.com/smartystreets/assertions v1.0.1
 	github.com/smartystreets/goconvey v1.6.3
 	github.com/stretchr/testify v1.4.0
-	golang.org/x/net v0.0.0-20180706051357-32a936f46389
+	golang.org/x/net v0.0.0-20191126235420-ef20fe5d7933
 )
