@@ -1,3 +1,6 @@
+# document see https://docs.codecov.io/docs/codecov-yaml
+
+## https://docs.codecov.io/docs/ignoring-paths
 ignore:
-  - "cfg/config.go"
+#  - "cfg/config.go"
   - "cfg/config.conf"
