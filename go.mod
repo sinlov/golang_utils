@@ -10,5 +10,4 @@ require (
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/stretchr/testify v1.4.0
 	github.com/unknwon/com v1.0.1
-	golang.org/x/net v0.0.0-20191126235420-ef20fe5d7933
 )
