@@ -19,9 +19,9 @@ func TestLayoutNowTime(t *testing.T) {
 		{
 			name: "base test",
 			args: args{
-				layout: "2006-01-02 15:04:05 .000",
+				layout: "2006-01-02 15:04:05 .0",
 			},
-			want: time.Now().Format("2006-01-02 15:04:05 .000"),
+			want: time.Now().Format("2006-01-02 15:04:05 .0"),
 		},
 	}
 	for _, tt := range tests {
