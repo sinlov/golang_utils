@@ -1,0 +1,3 @@
+ignore:
+  - "cfg/config.go"
+  - "cfg/config.conf"
